@@ -1,0 +1,118 @@
+---
+title: "Homework 1"
+author: "Prajwal Moharana"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+## Exercise 0.17
+
+```{r}
+Handwriting <- read_csv("data_sets/chapter_0/data/Handwriting.csv", show_col_types = FALSE)
+hist(Handwriting$Survey1)
+summary(Handwriting$Survey1)
+```
+The histogram shows that the percent correct from survey1 is approximately normal and the mean/median is most likely around 60. This is reflected in the summary statistics as the median is 64 and the mean is 62.52.
+
+## Exercise 0.19
+
+```{r}
+Handwriting_no_na <- subset(Handwriting, is.na(Survey1) == FALSE)
+survey1_residuals <- Handwriting_no_na$Survey1 - mean(Handwriting_no_na$Survey1)
+# Part a
+plot(Handwriting_no_na$Survey1, survey1_residuals)
+
+# Part b
+t.test(Handwriting_no_na$Survey1, mu = 50, alternative = "greater")
+```
+When conducting the t-test, we assume that the true mean is 50 and based on that assumption the probability of getting our sample was approximately zero. So we reject the null hypothesis of 50 and have convincing evidence that the mean is greater than 50.
+
+## Exercise 0.21
+
+```{r}
+# Part a
+Handwriting_genders <- Handwriting_no_na
+Handwriting_genders$Gender <- factor(Handwriting_genders$Gender,
+                              levels=c(0,1),
+                              labels=c("Male", "Female"))
+ggplot(Handwriting_genders, aes(x=Gender, y = Survey1, group = Gender)) +
+  geom_boxplot()
+
+# Part b
+Handwriting_male = subset(Handwriting_genders, Handwriting_genders$Gender == "Male")
+Handwriting_female = subset(Handwriting_genders, Handwriting_genders$Gender == "Female")
+print(paste0("Survey 1 Mean for males: ", mean(Handwriting_male$Survey1)))
+print(paste0("Survey 1 Mean for females: ", mean(Handwriting_female$Survey1)))
+
+# Part c
+hist(Handwriting_male$Survey1)
+hist(Handwriting_female$Survey1)
+t.test(Handwriting_male$Survey1, Handwriting_female$Survey2, alternative = "greater")
+```
+
+Analysis Written on Paper
+
+## Exercise 0.23
+
+```{r}
+weight_loss <- read_csv("data_sets/chapter_0/data/WeightLossIncentive7.csv", show_col_types = FALSE)
+weight_loss_control <- subset(weight_loss, weight_loss$Group == "Control")
+weight_loss_incentive <- subset(weight_loss, weight_loss$Group == "Incentive")
+
+ggplot(weight_loss, aes(x = Group, y = Month7Loss)) +
+  geom_boxplot()
+
+mean(weight_loss_control$Month7Loss)
+mean(weight_loss_incentive$Month7Loss)
+t.test(weight_loss_control$Month7Loss, weight_loss_incentive$Month7Loss, alternative = "less")
+```
+
+Using a two-sample t-test for difference in sample means we can see that our results are not statistically significant, so we fail to reject that the true difference between mean weight of the control group and incentive group is zero. So we do not have convincing evidence that the beneficial effects of financial incentives still apply to the weight losses at the seven-month point.
+
+## Exercise 0.25
+
+```{r}
+day_1_survey <- read_csv("data_sets/chapter_0/data/Day1Survey.csv", show_col_types = FALSE)
+day_1_survey_male <- subset(day_1_survey, day_1_survey$Sex == "M")
+day_1_survey_female <- subset(day_1_survey, day_1_survey$Sex == "F")
+
+summary(day_1_survey_female$Reading)
+summary(day_1_survey_male$Reading)
+
+t.test(day_1_survey_female$Reading, day_1_survey_male$Reading, alternative="greater")
+```
+
+We do not have significant evidence that women read more than men as our p-value is 0.8407, when assuming that men and women have equal reading times and testing that women have a greater reading time.
+
+## Exercise 0.27
+
+```{r}
+marathon_data <- read_csv("data_sets/chapter_0/data/Marathon.csv", show_col_types = FALSE)
+
+# Separating the data and cleaning out the NAs
+marathon_data_before <- subset(marathon_data, marathon_data$After2004 == 0)
+marathon_data_after <- subset(marathon_data, marathon_data$After2004 == 1)
+marathon_data_before <- subset(marathon_data_before, (is.na(marathon_data_before$PaceMin) | is.na(marathon_data_before$Miles)) == FALSE) 
+marathon_data_after <- subset(marathon_data_after, (is.na(marathon_data_after$PaceMin) | is.na(marathon_data_after$Miles)) == FALSE) 
+
+summary(marathon_data_before$PaceMin)
+sd(marathon_data_before$PaceMin)
+summary(marathon_data_after$PaceMin)
+
+summary(marathon_data_before$Miles)
+summary(marathon_data_after$Miles)
+
+t.test(marathon_data_before$PaceMin, marathon_data_after$PaceMin, alternative="less")
+t.test(marathon_data_before$Miles, marathon_data_after$Miles, alternative="greater")
+```
+
+Through both of these tests we are able to determine that there is evidence for a difference for average running pace and average distance run per day between these two different time periods. The simple model of claiming that the running pace and distance ran has not changed over the time periods was proven incorrect due to our statistically signficant results, so we must use the more complex model. By creating separate models based on time period ran, we can have a model that fits the data more effectively.
