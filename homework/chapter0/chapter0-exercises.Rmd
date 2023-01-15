@@ -17,7 +17,7 @@ library(ggplot2)
 ## Exercise 0.17
 
 ```{r}
-Handwriting <- read_csv("data_sets/chapter_0/data/Handwriting.csv", show_col_types = FALSE)
+Handwriting <- read_csv("../data_sets/chapter_0/data/Handwriting.csv", show_col_types = FALSE)
 hist(Handwriting$Survey1)
 summary(Handwriting$Survey1)
 ```
@@ -64,7 +64,7 @@ Analysis Written on Paper
 ## Exercise 0.23
 
 ```{r}
-weight_loss <- read_csv("data_sets/chapter_0/data/WeightLossIncentive7.csv", show_col_types = FALSE)
+weight_loss <- read_csv("../data_sets/chapter_0/data/WeightLossIncentive7.csv", show_col_types = FALSE)
 weight_loss_control <- subset(weight_loss, weight_loss$Group == "Control")
 weight_loss_incentive <- subset(weight_loss, weight_loss$Group == "Incentive")
 
@@ -81,7 +81,7 @@ Using a two-sample t-test for difference in sample means we can see that our res
 ## Exercise 0.25
 
 ```{r}
-day_1_survey <- read_csv("data_sets/chapter_0/data/Day1Survey.csv", show_col_types = FALSE)
+day_1_survey <- read_csv("../data_sets/chapter_0/data/Day1Survey.csv", show_col_types = FALSE)
 day_1_survey_male <- subset(day_1_survey, day_1_survey$Sex == "M")
 day_1_survey_female <- subset(day_1_survey, day_1_survey$Sex == "F")
 
@@ -96,7 +96,7 @@ We do not have significant evidence that women read more than men as our p-value
 ## Exercise 0.27
 
 ```{r}
-marathon_data <- read_csv("data_sets/chapter_0/data/Marathon.csv", show_col_types = FALSE)
+marathon_data <- read_csv("../data_sets/chapter_0/data/Marathon.csv", show_col_types = FALSE)
 
 # Separating the data and cleaning out the NAs
 marathon_data_before <- subset(marathon_data, marathon_data$After2004 == 0)
