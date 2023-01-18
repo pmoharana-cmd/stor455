@@ -79,6 +79,7 @@ sum(residxbar^2, na.rm=TRUE)
 ```{r}
 # using subset() to remove NA Amazon_Prices
 lego_rm_AP_na = subset(lego, is.na(Amazon_Price)==FALSE)
+amazon_prices = subset(amazon_prices, is.na(amazon_prices)==FALSE)
 ```
 
 ```{r}
@@ -88,31 +89,45 @@ lego_rm_AP_na = subset(lego, is.na(Amazon_Price)==FALSE)
 
 ```{r}
 # no problem now. why does residxbar lead to a smaller sum of squared errors? 
-
+sum(residxbar^2, na.rm=TRUE)
+sum(residm^2, na.rm=TRUE)
 ```
 
 ```{r}
 # other useful functions to describe the data.
+mean(amazon_prices~Theme, data = lego_rm_AP_na)
+tally(~Theme, data = lego_rm_AP_na)
+sd(amazon_prices~Theme, data = lego_rm_AP_na)
+boxplot(amazon_prices~Theme, data = lego_rm_AP_na)
 
 ```
 
 ```{r}
 # extract observations from two themes using subset()
 # "|" represents "or" and "&" represents "and"
+lego_friends_marvel = subset(lego_rm_AP_na, Theme == "Marvel" | Theme == "Friends")
+lego_friends_marvel
 
+amazon_prices = lego_friends_marvel$Amazon_Price
 ```
 
 ```{r}
 # two-sample t test
-
+t.test(amazon_prices ~ Theme, data = lego_friends_marvel)
 ```
 
 ```{r}
 # boxplot comparison of the two themes. any visible difference?
-
+boxplot(amazon_prices ~ Theme, 
+        data = lego_friends_marvel, 
+        horizontal = TRUE
+        )
 ```
 
 ```{r}
 # export data with write.csv()
+write.csv(lego_friends_marvel,
+          file = "lego_friends_marvel.csv",
+          row.names = FALSE)
 ```
 

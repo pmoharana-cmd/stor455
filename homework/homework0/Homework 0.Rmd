@@ -1,0 +1,32 @@
+---
+title: 'STOR 455 Homework #0'
+output:
+  pdf_document: default
+  html_notebook: default
+  word_document: default
+---
+
+Welcome to STOR 455! This assignment is to show that you:
+
+*   have R/RStudio installed and ready to use for the course.
+
+*   are able to knit files to PDF. 
+
+*   are able to submit assignments through Gradescope. 
+
+
+Fill in your name and pronouns in the chunk below. Then knit the file to PDF and submit the PDF to Gradescope. If you see LaTeX errors when knitting directly to PDF, try knitting to a word file and then converting that word file to a PDF.
+
+```{r}
+
+Name = 'My preferred name is: Praj Moharana.'
+
+Pronouns = 'My pronouns are: he/him. '
+
+```
+
+```{r}
+Name
+Pronouns
+```
+

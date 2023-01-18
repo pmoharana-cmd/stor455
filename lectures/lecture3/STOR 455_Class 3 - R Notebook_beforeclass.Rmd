@@ -1,0 +1,71 @@
+---
+title: "STOR 455 Class 3 R Notebook"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r warning = FALSE, message=FALSE}
+library(readr)
+
+lego <- read_csv("../lecture2/lego.csv")
+
+head(lego)
+```
+
+```{r}
+# Use plot() to make scatter plots
+
+```
+```{r}
+# This step creates a new dataset of lego sets with less than 2000 pieces
+```
+
+```{r}
+```
+
+```{r}
+# Use lm() to fit linear models of prices versus pieces
+# The ~ here separates the response and explanatory variables.
+```
+
+```{r}
+# we can save a fit into mod1, 
+
+```
+
+```{r}
+# mod1 contains many useful objects.Use $ to extract them.
+# mod1$residuals extracts residuals of the fit.
+# mod1$fitted.values extracts the predictions of the response.
+
+```
+
+```{r}
+```
+
+```{r}
+```
+
+```{r}
+#Sets randomization
+
+#Sample of 99 values from a Normal distribution; mean=0; sd=1; sorted ascending
+
+
+#list of integers 1 through 99.
+
+
+#z-scores of dataset of 99 values if perfectly normally distributed
+```
+
+```{r}
+```
+
+```{r}
+```
+
+```{r}
+```
+
