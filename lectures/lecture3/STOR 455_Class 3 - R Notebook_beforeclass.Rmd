@@ -16,23 +16,30 @@ head(lego)
 
 ```{r}
 # Use plot() to make scatter plots
-
+plot(Amazon_Price~Pieces, lego)
+# plot([y-variable]~[x-variable], dataframe)
 ```
 ```{r}
-# This step creates a new dataset of lego sets with less than 2000 pieces
+# This step creates a new dataset of lego sets with less than 2000 pieces, so data is more clustered
+lego_under_2k_pieces <- subset(lego, Pieces < 2000)
 ```
 
 ```{r}
+# Plotting data set with lego sets with less than 2000 pieces 
+plot(Amazon_Price~Pieces, lego_under_2k_pieces)
 ```
 
 ```{r}
 # Use lm() to fit linear models of prices versus pieces
 # The ~ here separates the response and explanatory variables.
+lm(Amazon_Price~Pieces, lego_under_2k_pieces)
 ```
 
 ```{r}
 # we can save a fit into mod1, 
-
+mod1 = lm(Amazon_Price~Pieces, lego_under_2k_pieces)
+plot(Amazon_Price~Pieces, data=lego_under_2k_pieces)
+abline(mod1)
 ```
 
 ```{r}
@@ -40,32 +47,57 @@ head(lego)
 # mod1$residuals extracts residuals of the fit.
 # mod1$fitted.values extracts the predictions of the response.
 
+summary(mod1)
 ```
 
 ```{r}
+head(mod1$residuals)
+head(mod1$fitted.values)
 ```
 
 ```{r}
+plot(mod1$residuals~mod1$fitted.values)
+abline(0,0)
+hist(mod1$residuals, breaks = 200)
+qqnorm(mod1$residuals)
+qqline(mod1$residuals)
 ```
 
 ```{r}
 #Sets randomization
-
+set.seed(455001)
 #Sample of 99 values from a Normal distribution; mean=0; sd=1; sorted ascending
-
-
+x = sort(rnorm(99, 0, 1))
+hist(x)
 #list of integers 1 through 99.
-
+y = c(1:99)
 
 #z-scores of dataset of 99 values if perfectly normally distributed
+#the z-score calculated relates to the percent of the data if taking the area of the left tail
+normy = qnorm(y/100)
+plot(x~normy)
+qqline(x)
 ```
 
 ```{r}
+x = rnorm(804, 0, 31.35)
+qqnorm(x)
+qqline(x)
 ```
 
 ```{r}
+plot(mod1)
 ```
 
 ```{r}
+# Finding a dataset of lego sets with pieces under 1100
+lego_under_1100_pieces <- subset(lego, lego$Pieces < 1100)
+
+mod2 = lm(Amazon_Price~Pieces, data = lego_under_1100_pieces)
+plot(Amazon_Price~Pieces, data = lego_under_1100_pieces)
+abline(mod2)
+hist(mod2$residuals)
+qqnorm(mod2$residuals)
+qqline(mod2$residuals)
 ```
 

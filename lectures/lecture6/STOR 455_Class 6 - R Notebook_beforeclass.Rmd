@@ -1,0 +1,76 @@
+---
+title: "STOR 455 Class 6 R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+ 
+```{r message=FALSE, warning=FALSE}
+# message=FALSE, warning=FALSE suppress warnings and messages from appearing in knitted files
+
+library(readr)
+library(Stat2Data)
+```
+
+```{r}
+data("LongJumpOlympics2016")
+head(LongJumpOlympics2016)
+```
+
+```{r}
+# Data analysis with linear regression model. Try to do it by yourself.
+
+```
+
+```{r}
+# An overview of residuals
+
+# Again using max() and which() to find interesting residuals
+
+```
+
+```{r}
+# rstandard() provides the standardized residuals of a model. 
+
+# Manual calculation of the standardized residuals. Will explain in future classes.
+# rmse <- sqrt(sum(GoldModel$residuals^2)/GoldModel$df.residual)
+# hv <- hatvalues(GoldModel)
+# GoldModel$residuals/rmse/sqrt(1-hv)
+
+```
+
+```{r}
+# Standardized residual plot
+
+```
+
+```{r}
+# rstudent() provides the studentized residuals with the leave-one-out rmse.
+
+```
+
+```{r}
+# Comparison of standardized residuals and studentized residuals
+
+```
+
+
+```{r}
+# Data analysis with linear model. Try it by yourself.
+
+```
+
+```{r}
+# Diagnostic plots of residuals.
+
+```
+
+```{r}
+# Analysis without PalmBeach.
+
+```
+
+```{r}
+# Diagnostic plots of residuals.
+
+```

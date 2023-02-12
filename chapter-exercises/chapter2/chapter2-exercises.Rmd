@@ -1,0 +1,106 @@
+---
+title: "Chapter 2 Exercises"
+author: "Prajwal Moharana"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+
+```{r, include = FALSE}
+library(tidyverse)
+library(Stat2Data)
+```
+
+## Exercise 2.13
+
+```{r}
+data("BrainpH")
+plot(pH~Age, data = BrainpH)
+brain_pH_model <- lm(pH~Age, data = BrainpH)
+summary(brain_pH_model)
+cor.test(BrainpH$pH, BrainpH$Age)
+```
+
+## Exercise 2.15
+
+```{r}
+data("Cereal")
+plot(Calories~Sugar, data = Cereal)
+calories_sugar_model <- lm(Calories~Sugar, data = Cereal)
+summary(calories_sugar_model)
+qt(0.025, 34)
+confint(calories_sugar_model)
+```
+
+## Exercise 2.17
+
+```{r}
+data("LewyDLBad")
+
+plot(MMSE~APC, data = LewyDLBad)
+MMSE_APC_model <- lm(MMSE~APC, data = LewyDLBad)
+abline(MMSE_APC_model)
+summary(MMSE_APC_model)
+plot(MMSE_APC_model, 1)
+confint(MMSE_APC_model, level = 0.9)
+```
+
+## Exercise 2.19
+
+```{r}
+data("RailsTrails")
+
+plot(Adj2007~Distance, data = RailsTrails)
+Adj2007_Distance_model <- lm(Adj2007~Distance, data = RailsTrails)
+abline(Adj2007_Distance_model)
+summary(Adj2007_Distance_model)
+confint(Adj2007_Distance_model, level = 0.90)
+
+plot(Adj2007_Distance_model, 1)
+```
+
+## Exercise 2.23
+
+```{r}
+data("USstamps")
+USstamps <- slice(USstamps, -(1:4))
+price_year_stamp_model <- lm(Price~Year, data = USstamps)
+anova(price_year_stamp_model)
+3841.2 / (3841.2 + 57.3)
+summary(price_year_stamp_model)
+```
+
+## Exercise 2.25
+
+```{r}
+data("Sparrows")
+weight_length_model <- lm(Weight~WingLength, data = Sparrows)
+summary(weight_length_model)
+cor.test(Sparrows$WingLength, Sparrows$Weight)
+anova(weight_length_model)
+```
+
+```{r}
+data("BreesPass")
+plot(Yards~Attempts, data = BreesPass)
+yards_attempts_model <- lm(Yards~Attempts, data = BreesPass)
+abline(yards_attempts_model)
+
+summary(yards_attempts_model)
+```
+
+## Exercise 2.29
+
+```{r}
+data("Goldenrod")
+plot(Wall03~Gdiam03, data = Goldenrod)
+thickness_diameter_model <- lm(Wall03~Gdiam03, data = Goldenrod)
+abline(thickness_diameter_model)
+
+summary(thickness_diameter_model)
+sample_data <- data.frame(Gdiam03 = 20)
+predict.lm(thickness_diameter_model, sample_data, level = 0.95, interval = "confidence")
+
+cor.test(Goldenrod$Gdiam03, Goldenrod$Wall03)
+```
+

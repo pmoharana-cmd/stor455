@@ -1,0 +1,166 @@
+---
+title: "Chapter 1 Exercises Odd"
+author: "Prajwal Moharana"
+date: "01/22/2023"
+output: html_document
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+## Exercise 1.15
+
+```{r}
+leaf_width <- read_csv("../data_sets/chapter_1/LeafWidth.csv", show_col_types = FALSE)
+model1 <- lm(Width~Year, leaf_width)
+summary(model1)
+37.72 - 0.0176 * 1966
+```
+
+a) Fitted regression model: (predicted leaf width) = 37.72 - 0.0176(Year)
+b) For an increase of 1 in year, the predicted leaf width decreases by 0.0176 millimeters.
+c) 3.1184 millimeters
+
+## Exercise 1.17
+
+```{r}
+faces <- read_csv("../data_sets/chapter_1/Faces.csv", show_col_types = FALSE)
+model2 <- lm(MaxGripStrength~Attractive, data = faces)
+summary(model2)
+
+36.10 + 4.705 * 3
+```
+
+a) Fitted regression model: (predicted MaxGripStrength) = 36.160 + 4.705(Attractiveness)
+b) For an increase of 1 in attractiveness, the predicted max grip strength goes up by 4.705 kilograms.
+c) 50.215 kilograms
+
+## Exercise 1.19
+
+```{r}
+cereal <- read_csv("../data_sets/chapter_1/Cereal.csv", show_col_types=FALSE)
+plot(Calories~Sugar, data=cereal)
+model3 <- lm(Calories~Sugar, data=cereal)
+abline(model3)
+summary(model3)
+```
+
+a) The data seems to be very randomly distributed but there a weak positive association between calories and sugar. 
+b) Fitted regression model: (predicted calories) = 87.428 + 5.1627(grams of sugar)
+c) For every additional gram of sugar in the cereal, the predicted calories increased by 5.1627 calories.
+
+## Exercise 1.21
+
+```{r}
+87.428 + 5.1627 * 10
+110 - (87.428 - 5.1627 * 1)
+plot(model3$residuals~model3$fitted.values)
+abline(0, 0)
+```
+
+a) 139.055 calories
+b) 27.7347
+c) It appears to be a good model because the residuals vs. fitted values plot shows constant variance and there is no noticeable pattern, so a linear model is a good summary of the relationship.
+
+## Exercise 1.23
+
+```{r}
+sparrows <- read_csv("../data_sets/chapter_1/Sparrows.csv", show_col_types=FALSE)
+model4 <- lm(Weight~WingLength, data=sparrows)
+plot(sparrows$Weight~sparrows$WingLength)
+abline(model4)
+hist(model4$residuals, breaks = 30)
+qqnorm(model4$residuals)
+qqline(model4$residuals)
+```
+
+a) I see one potential outlier/influence point on the plot and it is the sparrow with a wing length of around 16 with a weight under 6.
+b) The histogram seems to show an approximately normal distribution of errors but cannot be completely sure without using a normal quantile plot.
+c) It seems to following a fairly linear pattern with some deviations at the right side of the distribution but I can say that the data follows an approximately normal pattern.
+
+## Exercise 1.25
+
+```{r}
+rails <- read_csv("../data_sets/chapter_1/RailsTrails.csv", show_col_types=FALSE)
+plot(adj2007~distance, data = rails)
+model5 <- lm(adj2007~distance, data = rails)
+hist(model5$residuals, breaks=30)
+abline(model5)
+summary(model5)
+plot(model5$residuals~model5$fitted.values)
+abline(0,0)
+qqnorm(model5$residuals)
+qqline(model5$residuals)
+```
+
+a) There seems to be a weak negative relationship between the variables.
+b) Fitted regression line: (predicted house price) = 388.204 - 54.427(distance from nearest rail station). For an increase in one mile from the nearest railstation, the value of the home goes down $54427.
+c) The regression standard error is 92.13 and the means we can expect the data to deviate 92.13 thousand dollars on average.
+d) The variation of the error seems to increase as the fitted values increases, as seen by the megaphone shape on the residuals vs fitted.values graph. We can also see that there seems to be a right skew in the graph as seen in the histogram and qqplot. This shows the data is not normally distributed so it fails the conditions for inference.
+
+## Exercise 1.27
+
+```{r}
+volts <- read_csv("../data_sets/chapter_1/Volts.csv", show_col_types=FALSE)
+model6 <- lm(Voltage~Time, data = volts)
+plot(Voltage~Time, data = volts)
+plot(model6$residuals~model6$fitted.values)
+abline(0, 0)
+
+plot(log(Voltage)~Time, data = volts)
+model7 <- lm(log(Voltage)~Time, data = volts)
+summary(model7)
+plot(model7$residuals~model7$fitted.values)
+# Why is the residuals plot still curved, even though the regression equation seems to fit it much better
+```
+
+a) It seems to not follow a linear trend as the curvature more closely represents a -log().
+b) Through the residuals vs fitted values graph, I can see a clear curvature. This leads me to the conclusion that the linear regression on this data is not the best.
+c) After taking the log of Voltage it seems that the pattern is linear.
+d) Fitted regression line = (predicted log of voltage) = 2.19 - 2.059(second)
+e) Another curved pattern in the residuals plot.
+
+## Exercise 1.29
+
+```{r}
+caterpillars <- read_csv("../data_sets/chapter_1/Caterpillars.csv", show_col_types=FALSE)
+plot(WetFrass~Mass, data = caterpillars)
+plot(log10(WetFrass)~log10(Mass), data = caterpillars)
+model8 <- lm(log10(WetFrass)~log10(Mass), data = caterpillars)
+summary(model8)
+abline(model8)
+```
+
+c) Plot b; Fitted regression line: (Predicted log of wetfrass) = 1.0536 - 0.7386(log of mass)
+
+## Exercise 1.31
+
+```{r}
+plot(Mass~Intake, data = caterpillars)
+plot(LogMass~LogIntake, data = caterpillars)
+model9 <- lm(LogMass~LogIntake, data = caterpillars)
+abline(model9)
+plot(model9$residuals~model9$fitted.values)
+abline(0, 0)
+qqnorm(model9$residuals)
+qqline(model9$residuals)
+```
+
+a) It does not seem to follow a linear pattern, but seems to have three clusters of data.
+b) The data seems to be more condensed but there seems to be a noticeable curvature to the data.
+c) No a linear model should not be used to model either relationship because it the residuals vs fitted values graph shows a curvature, indicating a linear model may not be the best option for the data.
+
+## Exercise 1.32
+
+```{r}
+plot(Intake~Mass, data = caterpillars)
+plot(LogIntake~LogMass, data = caterpillars)
+model10 <- lm(LogIntake~LogMass, data = caterpillars)
+abline(model10)
+plot(model10$residuals~model10$fitted.values)
+abline(0, 0)
+qqnorm(model10$residuals)
+qqline(model10$residuals)
+```
+

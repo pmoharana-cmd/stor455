@@ -1,0 +1,25 @@
+---
+title: "Chapter 1 Exercises Odd"
+author: "Prajwal Moharana"
+date: "02/01/2023"
+output: html_document
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+
+## Exercise 4.11
+
+```{r}
+data("ReligionGDP")
+plot(log(GDP)~Religiosity, data = ReligionGDP)
+religion_gdp_model <- lm(log(GDP)~Religiosity, data = ReligionGDP)
+abline(religion_gdp_model)
+summary(religion_gdp_model)
+plot(rstudent(religion_gdp_model)~religion_gdp_model$fitted.values)
+abline(0, 0)
+rstudent(religion_gdp_model)[25]
+```
+
